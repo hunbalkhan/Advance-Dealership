@@ -57,13 +57,7 @@ public class SalesContract extends Contract {
 
         double monthlyRate = annualRate / 12;
 
-        // car = 12000
-        // rate = .0425
-        // 48                           principal           interest    =   total with interest
-                                    //  250           +         42      = $292
-       double monthlyPayment2 = (totalPrice / months) + (totalPrice * monthlyRate);
-
-
-       return 0;
+       double monthlyPayment = (totalPrice / months) + (totalPrice * monthlyRate);
+       return monthlyPayment;
     }
 }
