@@ -50,9 +50,20 @@ public class SalesContract extends Contract {
         //double rate = (price < 10000) ? $295:$495;
 
         double totalPrice = getTotalPrice();
-        double rate =
+
+        // if totalPrice < 10000, then rate = 5.25%, else it will be 4.25%
+        double annualRate = (totalPrice < 10000) ? 0.0525 : 0.0425;
+        int months = (totalPrice < 10000) ? 24 : 48;
+
+        double monthlyRate = annualRate / 12;
+
+        // car = 12000
+        // rate = .0425
+        // 48                           principal           interest    =   total with interest
+                                    //  250           +         42      = $292
+       double monthlyPayment2 = (totalPrice / months) + (totalPrice * monthlyRate);
 
 
-        return 0;
+       return 0;
     }
 }
