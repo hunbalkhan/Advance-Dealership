@@ -1,7 +1,11 @@
-package com.pluralsight;
+package com.pluralsight.userInterface;
 
-import java.io.IOException;
-import java.sql.SQLOutput;
+import com.pluralsight.models.Dealership;
+import com.pluralsight.models.Person;
+import com.pluralsight.models.Vehicle;
+import com.pluralsight.data.DealershipFileManager;
+
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,6 +21,11 @@ public class UserInterface {
     // core display method to start user interface
     public void display() {
         init(); // loads dealership from file
+
+
+        Person p = new Person("Matt", "C", 43);
+        String firstName = p.getFirstName();
+
 
         boolean running = true;
         while (running) {

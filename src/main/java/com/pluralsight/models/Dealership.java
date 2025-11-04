@@ -1,7 +1,5 @@
-package com.pluralsight;
+package com.pluralsight.models;
 
-
-import com.pluralsight.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +9,7 @@ public class Dealership {
     private String name;
     private String address;
     private String phone;
-    private ArrayList<Vehicle> inventory;
+    private ArrayList<ehicle> inventory;
 
     public Dealership(String name, String address, String phone) {
         this.name = name;

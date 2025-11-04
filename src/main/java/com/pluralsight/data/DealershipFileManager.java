@@ -1,5 +1,8 @@
-package com.pluralsight;
+package com.pluralsight.data;
 
+
+import com.pluralsight.models.Dealership;
+import com.pluralsight.models.Vehicle;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
