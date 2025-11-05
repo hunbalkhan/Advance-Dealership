@@ -1,7 +1,5 @@
 package com.pluralsight;
 
-import java.io.IOException;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -183,7 +181,8 @@ public class UserInterface {
 
         Vehicle vehicle = new Vehicle (vin, year, make, model, type, color, odometer, price);
         dealership.addVehicle(vehicle); // adding to inventory
-        DealershipFileManager.saveNewVehicle(vehicle);
+        DealershipFileManager dfm = new DealershipFileManager();
+        dfm.saveNewVehicle(vehicle);
 
     }
 
@@ -206,7 +205,8 @@ public class UserInterface {
             dealership.getAllVehicles().remove(toRemove);
 
             // save the updated dealership to the CSV
-            DealershipFileManager.saveDealership(dealership);
+            DealershipFileManager dfm = new DealershipFileManager();
+            dfm.saveDealership(dealership);
             System.out.println("Vehicle removed successful!");
         }
         else {
@@ -214,7 +214,7 @@ public class UserInterface {
         }
     }
 
-
+    // Contracts Menu
     private void contractsMenu() {
         System.out.println("\n=== Contracts Menu ===");
         System.out.println("1) Sell Vehicle");
@@ -268,6 +268,9 @@ public class UserInterface {
 
         // removing
         dealership.removeVehicle(vehicle);
+        DealershipFileManager dfm = new DealershipFileManager();
+        dfm.saveDealership(dealership);
+
         System.out.println("Sale contract processed successfully!");
     }
 
@@ -296,6 +299,8 @@ public class UserInterface {
 
         // removing vehicle from inventory
         dealership.removeVehicle(vehicle);
+        DealershipFileManager dfm = new DealershipFileManager();
+        dfm.saveDealership(dealership);
         System.out.println("Lease contract processed and vehicle removed form inventory.");
     }
 

@@ -51,7 +51,7 @@ public class DealershipFileManager {
         return dealership;
     }
 
-    public static void saveNewVehicle(Vehicle vehicle) {
+    public void saveNewVehicle(Vehicle vehicle) {
         try {
             // 'true' = append mode (adds to end of file instead of overwriting)
             FileWriter fw = new FileWriter("inventory.csv", true);
@@ -77,7 +77,7 @@ public class DealershipFileManager {
         }
     }
 
-    public static void saveDealership(Dealership dealership) {
+    public void saveDealership(Dealership dealership) {
         try {
             FileWriter fw = new FileWriter("inventory.csv");
             BufferedWriter bw = new BufferedWriter(fw);
@@ -98,8 +98,9 @@ public class DealershipFileManager {
                         v.getPrice());
                 bw.newLine();
 
-                bw.close();
             }
+
+            bw.close();
             System.out.println("dealership saved successfully!");
         }
         catch (IOException e) {
