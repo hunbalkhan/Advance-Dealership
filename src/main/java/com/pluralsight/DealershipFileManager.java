@@ -41,7 +41,8 @@ public class DealershipFileManager {
                 );
 
                 dealership.addVehicle(vehicle);
-            }
+
+            };
 
         } catch (IOException e) {
             e.getStackTrace();
@@ -78,7 +79,7 @@ public class DealershipFileManager {
 
     public static void saveDealership(Dealership dealership) {
         try {
-            FileWriter fw = new FileWriter("contracts.csv");
+            FileWriter fw = new FileWriter("inventory.csv");
             BufferedWriter bw = new BufferedWriter(fw);
 
             // write dealership info first

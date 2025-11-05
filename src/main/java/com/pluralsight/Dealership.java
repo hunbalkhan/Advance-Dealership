@@ -5,6 +5,7 @@ import com.pluralsight.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Dealership {
 
@@ -116,4 +117,16 @@ public class Dealership {
         }
         return result;
     }
+
+    public Vehicle findVehicleByVin(int vin) {
+        for (Vehicle v : inventory) {
+            if (v.getVin() == vin) {
+                return v;
+            }
+        }
+        return null; // if not found
+    }
+
+
+
 }

@@ -9,7 +9,7 @@ public class ContractDataManager {
 
     public void saveContract(Contract contract) {
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("inventory.csv", true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("contracts.csv", true))) {
 
             String line = "";
 
@@ -51,7 +51,5 @@ public class ContractDataManager {
         } catch (IOException e) {
             System.out.println("Error saving contract...");;
         }
-
     }
-
 }

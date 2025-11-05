@@ -2,6 +2,7 @@ package com.pluralsight;
 
 import java.io.IOException;
 import java.sql.SQLOutput;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -52,6 +53,9 @@ public class UserInterface {
                 case "9":
                     processRemoveVehicle();
                     break;
+                case "10":
+                    contractsMenu();
+                    break;
                 case "99":
                     running = false;
                     System.out.println("Exiting application...");
@@ -87,15 +91,16 @@ public class UserInterface {
     // Display main menu
     private void displayMenu() {
         System.out.println("\n=== Dealership Menu ===");
-        System.out.println("1) View All Vehicles");
-        System.out.println("2) Search Vehicles by Price");
-        System.out.println("3) Search Vehicles by Make & Model");
-        System.out.println("4) Search Vehicles by Year");
-        System.out.println("5) Search Vehicles by Color");
-        System.out.println("6) Search Vehicles by Mileage");
-        System.out.println("7) Search Vehicles by Type");
-        System.out.println("8) Add a vehicle");
-        System.out.println("9) Remove a vehicle");
+        System.out.println(" 1) View All Vehicles");
+        System.out.println(" 2) Search Vehicles by Price");
+        System.out.println(" 3) Search Vehicles by Make & Model");
+        System.out.println(" 4) Search Vehicles by Year");
+        System.out.println(" 5) Search Vehicles by Color");
+        System.out.println(" 6) Search Vehicles by Mileage");
+        System.out.println(" 7) Search Vehicles by Type");
+        System.out.println(" 8) Add a vehicle");
+        System.out.println(" 9) Remove a vehicle");
+        System.out.println("10) Sale/Lease Contracts menu");
         System.out.println("99) Exit");
     }
 
@@ -208,4 +213,91 @@ public class UserInterface {
             System.out.println("Vehicle with VIN " + vin + " not found.");
         }
     }
+
+
+    private void contractsMenu() {
+        System.out.println("\n=== Contracts Menu ===");
+        System.out.println("1) Sell Vehicle");
+        System.out.println("2) Lease Vehicle");
+        System.out.println("3) Return to Main Menu");
+        System.out.println("Enter your choice: ");
+        String choice = scanner.nextLine().trim();
+
+        switch (choice) {
+            case "1":
+                processSaleContract();
+                break;
+            case "2":
+                processLeaseContract();
+                break;
+            case "3":
+                System.out.println("Returning to Main Menu...");
+                break;
+            default:
+                System.out.println("Invalid input. Try Again");
+                contractsMenu(); // re-show the menu
+                break;
+        }
+    }
+
+    private void processSaleContract() {
+        System.out.println("Enter customer name: ");
+        String name = scanner.nextLine();
+
+        System.out.println("Enter customer email: ");
+        String email = scanner.nextLine();
+
+        System.out.println("Enter VIN of vehicle being sold: ");
+        int vin = Integer.parseInt(scanner.nextLine());
+
+        Vehicle vehicle = dealership.findVehicleByVin(vin);
+        if (vehicle == null) {
+            System.out.println("Vehicle not found!");
+            return;
+        }
+
+        System.out.println("Will the customer finance the vehicle? (Y/N): ");
+        boolean isFinanced = scanner.nextLine().equalsIgnoreCase("Y");
+
+        // Create Sale Contract
+        SalesContract sale = new SalesContract(LocalDate.now().toString(), name, email, vehicle, isFinanced);
+
+        // saving
+        ContractDataManager dataManager = new ContractDataManager();
+        dataManager.saveContract(sale);
+
+        // removing
+        dealership.removeVehicle(vehicle);
+        System.out.println("Sale contract processed successfully!");
+    }
+
+    private void processLeaseContract() {
+        System.out.println("Enter customer name: ");
+        String name = scanner.nextLine();
+
+        System.out.println("Enter customer email: ");
+        String email = scanner.nextLine();
+
+        System.out.println("Enter VIN of vehicle being sold: ");
+        int vin = Integer.parseInt(scanner.nextLine());
+
+        Vehicle vehicle = dealership.findVehicleByVin(vin);
+        if (vehicle == null) {
+            System.out.println("Vehicle not found!");
+            return;
+        }
+
+        // create lease contract
+        LeaseContract lease = new LeaseContract(LocalDate.now().toString(), name, email, vehicle);
+
+        // saving
+        ContractDataManager dataManager = new ContractDataManager();
+        dataManager.saveContract(lease);
+
+        // removing vehicle from inventory
+        dealership.removeVehicle(vehicle);
+        System.out.println("Lease contract processed and vehicle removed form inventory.");
+    }
+
+
 }
